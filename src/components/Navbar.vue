@@ -15,7 +15,7 @@
         <v-toolbar dark class="primary">
             <v-toolbar-side-icon @click.stop="sideNav = !sideNav" class="hidden-sm-and-up "></v-toolbar-side-icon>
             <v-toolbar-title>
-                <router-link to="/" tag="span" style="cursor: pointer" id="main-title">Remotely</router-link>
+                <router-link to="/" tag="span" style="cursor: pointer" id="main-title">Remote.ly</router-link>
             </v-toolbar-title>
             <v-spacer></v-spacer>
 
@@ -47,9 +47,15 @@
 </script>
 
 <style lang="stylus" scoped>
+    @import url('https://fonts.googleapis.com/css?family=Damion');
+
     .v-btn:hover, .v-btn__content:hover{
         color: black;
         background-color: #FFC107
     }
 
+    #main-title {
+        font-family: 'Damion', cursive;
+        font-size : 3rem;
+    }
 </style>
