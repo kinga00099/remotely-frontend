@@ -1,19 +1,20 @@
 <template>
     <v-app>
         <navbar></navbar>
-        <main>
             <router-view></router-view>
-        </main>
+        <foot></foot>
     </v-app>
 </template>
 
 <script>
     import navbar from './components/Navbar.vue'
+    import foot from './components/Footer.vue'
 
     export default {
         name: 'app',
         components: {
-            navbar
+            navbar,
+            foot
         }
     }
 </script>
