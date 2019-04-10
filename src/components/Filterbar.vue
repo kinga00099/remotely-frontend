@@ -1,7 +1,10 @@
 <template>
-
-        <v-container grid-list-xl>
-
+    <div>
+        <form>
+            <v-text-field class="search" v-model="search" label="Search" :append-icon="icon">
+            </v-text-field>
+        </form>
+        <v-container grid-list-xl >
             <v-layout wrap align-center>
                 <v-flex xs12 sm4 d-flex>
                     <v-select
@@ -27,6 +30,7 @@
 
             </v-layout>
         </v-container>
+    </div>
 </template>
 
 <script>
@@ -35,8 +39,7 @@
     export default {
         data() {
             return {
-                labels: ["Category", "Level", "Type"],
-                items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
+                icon: 'search',
                 types: [],
                 categories: [],
                 levels: [],
@@ -67,11 +70,22 @@
         .container {
             background-color: #eceff1;
         }
+        .search {
+            max-width: 40%;
+        }
     }
 
     @media only screen and (min-width: 1264px) {
         .container {
             max-width: 66%;
         }
+        .search {
+            max-width: 25%;
+        }
+    }
+
+    .search {
+        padding: 0 1rem;
+        margin:auto;
     }
 </style>
