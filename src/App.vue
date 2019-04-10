@@ -2,6 +2,7 @@
     <v-app>
         <navbar></navbar>
         <header-component></header-component>
+        <filterbar></filterbar>
         <v-content>
             <v-container>
                 <router-view></router-view>
@@ -12,16 +13,18 @@
 </template>
 
 <script>
-    import navbar from './components/Navbar.vue'
-    import footer from './components/Footer.vue'
     import header from './components/Header.vue'
+    import navbar from './components/Navbar.vue'
+    import filterbar from './components/Filterbar.vue'
+    import footer from './components/Footer.vue'
 
     export default {
         name: 'app',
         components: {
             navbar,
             "footer-component": footer,
-            "header-component": header
+            "header-component": header,
+            filterbar
         }
     }
 </script>
