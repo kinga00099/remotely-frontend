@@ -19,13 +19,14 @@
         font-family: 'Gentium Basic', serif;
         font-size: 2rem;
         text-align: center;
-        margin: 0.67em 0 0.2em 0;
+        margin: 0.5em 0 0.2em 0;
     }
 
     h2 {
         font-family: 'Playfair Display SC', serif;
         font-size: 1rem;
         text-align: center;
+        margin-bottom: 1.5rem;
     }
 
 
@@ -35,6 +36,7 @@
         }
         h2 {
             font-size: 1.5rem;
+            margin-bottom: 2rem;
         }
     }
 
@@ -44,6 +46,7 @@
         }
         h2 {
             font-size: 2rem;
+            margin-bottom: 3rem;
         }
     }
 
