@@ -1,9 +1,5 @@
 <template>
-    <div>
-        <form>
-            <v-text-field class="search" v-model="search" label="Search" :append-icon="icon">
-            </v-text-field>
-        </form>
+
         <v-container grid-list-xl >
             <v-layout wrap align-center>
                 <v-flex xs12 sm4 d-flex>
@@ -27,10 +23,9 @@
                             solo
                     ></v-select>
                 </v-flex>
-
             </v-layout>
         </v-container>
-    </div>
+
 </template>
 
 <script>
@@ -39,14 +34,11 @@
     export default {
         data() {
             return {
-                icon: 'search',
                 types: [],
                 categories: [],
                 levels: [],
-                search: ''
             }
         },
-
         created() {
             axios.get("/types")
                 .then(response => {
@@ -63,29 +55,13 @@
 
     .container {
         flex: none;
-        padding-bottom: 0;
-    }
-
-    @media only screen and (min-width: 600px) {
-        .container {
-            background-color: #eceff1;
-        }
-        .search {
-            max-width: 40%;
-        }
     }
 
     @media only screen and (min-width: 1264px) {
         .container {
-            max-width: 66%;
-        }
-        .search {
-            max-width: 25%;
+            max-width: 65%;
         }
     }
 
-    .search {
-        padding: 0 1rem;
-        margin:auto;
-    }
+
 </style>
