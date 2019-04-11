@@ -16,7 +16,7 @@ axios.defaults.headers.get['Accepts'] = 'application/json';
 Vue.use(Vuetify, {
     iconfont: 'md',
     theme: {
-        primary: '#78909C',
+        primary: '#212121',
         accent: '#FFC107'
     }
 });

@@ -4,8 +4,8 @@
             <v-btn v-for="link in links" :key="link" color="white" flat round>
                 {{ link }}
             </v-btn>
-            <v-flex primary lighten-2 py-3 text-xs-center black--text xs12>
-                &copy; 2019 — Máté Kinga
+            <v-flex primary lighten-2 py-3 text-xs-center black--text xs12 >
+                <span class="copyright"> &copy; 2019 — Máté Kinga </span>
             </v-flex>
         </v-layout>
     </v-footer>
@@ -24,3 +24,8 @@
         })
     }
 </script>
+<style scoped>
+    .copyright {
+        color: white;
+    }
+</style>
