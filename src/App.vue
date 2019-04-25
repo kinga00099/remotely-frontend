@@ -35,7 +35,8 @@
     @import "assets/stylus/main.styl"
 
     .header__background {
-        background: url("https://pixabay.com/get/e837b90f2df7093ed1534705fb0938c9bd22ffd41cb4154895f3c27da7/notebook-1280538_1920.jpg") left 5% bottom 98%/cover no-repeat border-box;
+        background: url(assets/img/header_background.jpg) left 5% bottom 98%/cover no-repeat border-box;
+        background-color: #655b52;
     }
 
 
