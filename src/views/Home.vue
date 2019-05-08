@@ -15,7 +15,7 @@
                                             ripple
                                             :to="'job/' + job.id"
                                     >
-                                        <v-avatar >
+                                        <v-avatar>
                                             <img class="logo" :alt="job.company.title" :src="job.company.logo">
                                         </v-avatar>
                                         <v-list-tile-content>
@@ -26,7 +26,6 @@
                                                 <v-item-group multiple>
                                                     <v-item v-for="tag in job.tags" :key="tag">
                                                         {{tag}}
-
                                                     </v-item>
                                                 </v-item-group>
                                             </v-list-tile-sub-title>
@@ -34,9 +33,9 @@
 
                                         <v-list-tile-action>
                                             <v-list-tile-action-text>{{ job.posted }}</v-list-tile-action-text>
-                                            <v-chip outline color="blue">
+                                            <v-chip outline :color="getChipOutline(job.category)">
                                                 <v-avatar>
-                                                    <v-icon>account_circle</v-icon>
+                                                    <v-icon>{{ getIcon(job.category)}}</v-icon>
                                                 </v-avatar>
                                                 <span class="category">{{job.category}}</span>
 
@@ -70,6 +69,60 @@
         },
         components: {
             filterbar
+        },
+        methods: {
+            getIcon: (category) => {
+                switch (category) {
+                    case "CUSTOMERSUPPORT":
+                        return "contact_phone";
+                    case "COPYWRITING":
+                        return "create";
+                    case "DESIGN":
+                        return "format_color_fill";
+                    case "DEVOPS":
+                        return "cloud_done";
+                    case "FINANCE":
+                        return "attach_money";
+                    case "LEGAL":
+                        return "copyright";
+                    case "MARKETING":
+                        return "share";
+                    case "MANAGEMENT":
+                        return "how_to_reg";
+                    case "OTHER":
+                        return "devices_other";
+                    case "PRODUCT":
+                        return "store";
+                    case "PROGRAMMING":
+                        return "computer";
+                }
+            },
+            getChipOutline: (category) => {
+                switch (category) {
+                    case "CUSTOMERSUPPORT":
+                        return "pink";
+                    case "COPYWRITING":
+                        return "brown";
+                    case "DESIGN":
+                        return "purple";
+                    case "DEVOPS":
+                        return "darkblue";
+                    case "FINANCE":
+                        return "green";
+                    case "LEGAL":
+                        return "orange";
+                    case "MARKETING":
+                        return "cyan";
+                    case "MANAGEMENT":
+                        return "black";
+                    case "OTHER":
+                        return "grey";
+                    case "PRODUCT":
+                        return "red";
+                    case "PROGRAMMING":
+                        return "blue";
+                }
+            }
         },
         created() {
             axios.get("/jobs")
