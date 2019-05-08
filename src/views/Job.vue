@@ -2,14 +2,14 @@
     <v-container grid-list-xl>
         <v-flex xs12 sm10 md8 lg6 offset-sm1 offset-md2 offset-lg3>
             <v-card class="elevation-5">
-                <v-layout  align-center row fill-height>
+                <v-layout align-center row fill-height>
                     <v-flex xs8>
                         <v-card-title primary-title>
                             <div>
-                                <div class="headline">{{job.jobTitle}}</div>
+                                <div class="headline"><strong>{{job.jobTitle}}</strong></div>
                                 <div><span>Category: {{job.category}}, Type: {{job.type}}, Level: {{job.level}}</span>
                                 </div>
-                                <div>{{company.title}}</div>
+                                <div><strong>{{company.title}}</strong></div>
                                 <div>Industry: {{company.industry}}</div>
                                 <div>Headquarter: {{company.headquarter}}</div>
                                 <div>Must be located: {{job.mustBeLocated}}</div>
@@ -44,17 +44,9 @@
                                 <v-layout>
                                     <v-flex xs11>
                                         <h2>About us</h2>
-                                        Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet
-                                        nec ut, sed euismod convenire principes at. Est et nobis iisque percipit.
-                                        Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet
-                                        nec ut, sed euismod convenire principes at. Est et nobis iisque percipit.
-                                        Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet
+                                        {{company.description}}
                                         <h2>What we do</h2>
-                                        nec ut, sed euismod convenire principes at. Est et nobis iisque percipit.
-                                        Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet
-                                        nec ut, sed euismod convenire principes at. Est et nobis iisque percipit.
-                                        Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet
-                                        nec ut, sed euismod convenire principes at. Est et nobis iisque percipit.
+                                        {{company.activity}}
                                     </v-flex>
                                 </v-layout>
                             </v-container>
@@ -74,17 +66,13 @@
                                 <v-layout>
                                     <v-flex xs11>
                                         <h2>Work-time</h2>
-                                        Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet
-                                        nec ut, sed euismod convenire principes at. Est et nobis iisque percipit.
+                                        {{job.worktime}}
                                         <h2>Daily tasks</h2>
-                                        Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet
-                                        nec ut, sed euismod convenire principes at. Est et nobis iisque percipit.
+                                        {{job.dailyTasks}}
                                         <h2>Technology stack</h2>
-                                        Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet
-                                        nec ut, sed euismod convenire principes at. Est et nobis iisque percipit.
+                                        {{job.technologyStack}}
                                         <h2>Project members</h2>
-                                        Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet
-                                        nec ut, sed euismod convenire principes at. Est et nobis iisque percipit.
+                                        {{job.aboutProjectMembers}}
                                     </v-flex>
                                 </v-layout>
                             </v-container>
@@ -104,17 +92,13 @@
                                 <v-layout>
                                     <v-flex xs11>
                                         <h2>The ideal candidate</h2>
-                                        Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet
-                                        nec ut, sed euismod convenire principes at. Est et nobis iisque percipit.
+                                        {{job.idealCandidate}}
                                         <h2>Required hard skills</h2>
-                                        Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet
-                                        nec ut, sed euismod convenire principes at. Est et nobis iisque percipit.
+                                        {{job.hardSkills}}
                                         <h2>Required soft skills</h2>
-                                        Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet
-                                        nec ut, sed euismod convenire principes at. Est et nobis iisque percipit.
+                                        {{job.softSkills}}
                                         <h2>Good to have...</h2>
-                                        Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet
-                                        nec ut, sed euismod convenire principes at. Est et nobis iisque percipit.
+                                        {{job.preferredSkills}}
                                     </v-flex>
                                 </v-layout>
                             </v-container>
@@ -134,11 +118,9 @@
                                 <v-layout>
                                     <v-flex xs11>
                                         <h2>Salary</h2>
-                                        Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet
-                                        nec ut, sed euismod convenire principes at. Est et nobis iisque percipit. <h2>
-                                        Why you should choose us</h2>
-                                        Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet
-                                        nec ut, sed euismod convenire principes at. Est et nobis iisque percipit.
+                                        {{job.salary}}
+                                        <h2>Why you should choose us</h2>
+                                        {{job.benefits}}
                                     </v-flex>
                                 </v-layout>
                             </v-container>
@@ -158,11 +140,9 @@
                                 <v-layout>
                                     <v-flex xs11>
                                         <h2>Our hiring process</h2>
-                                        Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet
-                                        nec ut, sed euismod convenire principes at. Est et nobis iisque percipit.
+                                        {{job.hiringProcess}}
                                         <h2>How to apply</h2>
-                                        Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet
-                                        nec ut, sed euismod convenire principes at. Est et nobis iisque percipit.
+                                        {{job.howToApply}}
                                     </v-flex>
                                 </v-layout>
                             </v-container>
@@ -197,5 +177,7 @@
 </script>
 
 <style scoped>
-
+    .container {
+        text-align: justify;
+    }
 </style>
