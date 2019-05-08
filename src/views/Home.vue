@@ -1,7 +1,8 @@
 <template>
     <div>
+            <header-component></header-component>
+    <div>
         <filterbar></filterbar>
-
         <v-layout row>
             <v-flex xs12 sm6 offset-sm3 class="jobs">
                 <v-card>
@@ -55,10 +56,16 @@
             </v-flex>
         </v-layout>
     </div>
+
+    </div>
 </template>
+
 
 <script>
     import filterbar from '../components/Filterbar.vue'
+    import header from '../components/Header.vue'
+
+
     import axios from 'axios';
 
     export default {
@@ -68,7 +75,10 @@
             }
         },
         components: {
-            filterbar
+            filterbar,
+            "header-component": header,
+
+
         },
         methods: {
             getIcon: (category) => {
@@ -139,6 +149,7 @@
         flex-basis: 0;
         margin: auto;
         flex-grow: 1;
+        padding: 0 2rem 2rem 2rem;
     }
 
     .category {
@@ -166,5 +177,7 @@
             max-width: 60%;
         }
     }
+
+
 
 </style>

@@ -1,13 +1,19 @@
 <template>
-    <div>
+    <div class="header__background">
         <h1>Find a virtual job</h1>
         <h2>and start your remote career today</h2>
+        <searchbar></searchbar>
     </div>
 </template>
 
 <script>
+    import searchbar from '../components/Searchbar.vue'
+
     export default {
-        name: "Header"
+        name: "Header",
+        components: {
+            searchbar
+        }
     }
 </script>
 
@@ -20,7 +26,9 @@
         font-size: 2rem;
         color: white;
         text-align: center;
-        margin: 0.5em 0 0.2em 0;
+        margin:0 0 0.3rem 0;
+        padding-top: 2rem
+
     }
 
     h2 {
@@ -54,5 +62,22 @@
 
     div {
         margin: auto;
+    }
+
+    .header__background {
+        background: #655b52 url(../assets/img/header_background.jpg) no-repeat left 12% bottom 86%;
+    }
+
+
+    @media only screen and (min-width: 600px) and (max-width: 1264px) {
+        .header__background{
+            padding-bottom: 2rem;
+        }
+    }
+
+    @media only screen and (min-width: 1264px) {
+        .header__background {
+            padding-bottom: 4rem;
+        }
     }
 </style>
