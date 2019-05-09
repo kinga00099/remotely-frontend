@@ -2,7 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../views/Home.vue'
 import Job from "../views/Job";
+import NotFound from "../views/NotFound";
+
 import Auth from "@okta/okta-vue";
+
 
 Vue.use(Auth, {
     issuer: 'https://dev-933332.okta.com/oauth2/default',
@@ -22,7 +25,7 @@ let router = new Router({
         },
         {
             path: '*',
-            redirect: '/'
+            component: NotFound
         },
         {
             path: '/job/:id',
