@@ -1,61 +1,61 @@
 <template>
     <div>
-            <header-component></header-component>
-    <div>
-        <filterbar></filterbar>
-        <v-layout row>
-            <v-flex xs12 sm6 offset-sm3 class="jobs">
-                <v-card>
-                    <v-list three-line>
-                        <div v-if="jobs && jobs.length">
-                            <div v-for="i in 5">
-                                <template v-for="(job, index) in jobs">
-                                    <v-list-tile
-                                            :key="job.jobTitle"
-                                            avatar
-                                            ripple
-                                            :to="'job/' + job.id"
-                                    >
-                                        <v-avatar>
-                                            <img class="logo" :alt="job.company.title" :src="job.company.logo">
-                                        </v-avatar>
-                                        <v-list-tile-content>
-                                            <v-list-tile-title>{{ job.jobTitle }}</v-list-tile-title>
-                                            <v-list-tile-sub-title class="text--primary">{{ job.company.title }}
-                                            </v-list-tile-sub-title>
-                                            <v-list-tile-sub-title>
-                                                <v-item-group multiple>
-                                                    <v-item v-for="tag in job.tags" :key="tag">
-                                                        {{tag}}
-                                                    </v-item>
-                                                </v-item-group>
-                                            </v-list-tile-sub-title>
-                                        </v-list-tile-content>
+        <header-component></header-component>
+        <div>
+            <filterbar></filterbar>
+            <v-layout row>
+                <v-flex xs12 sm6 offset-sm3 class="jobs">
+                    <v-card>
+                        <v-list three-line>
+                            <div v-if="jobs && jobs.length">
+                                <div v-for="i in 5">
+                                    <template v-for="(job, index) in jobs">
+                                        <v-list-tile
+                                                :key="job.jobTitle"
+                                                avatar
+                                                ripple
+                                                :to="'job/' + job.id"
+                                        >
+                                            <v-avatar>
+                                                <img class="logo" :alt="job.company.title" :src="job.company.logo">
+                                            </v-avatar>
+                                            <v-list-tile-content>
+                                                <v-list-tile-title>{{ job.jobTitle }}</v-list-tile-title>
+                                                <v-list-tile-sub-title class="text--primary">{{ job.company.title }}
+                                                </v-list-tile-sub-title>
+                                                <v-list-tile-sub-title>
+                                                    <v-item-group multiple>
+                                                        <v-item v-for="tag in job.tags" :key="tag">
+                                                            {{tag}}
+                                                        </v-item>
+                                                    </v-item-group>
+                                                </v-list-tile-sub-title>
+                                            </v-list-tile-content>
 
-                                        <v-list-tile-action>
-                                            <v-list-tile-action-text>{{ job.posted }}</v-list-tile-action-text>
-                                            <v-chip outline :color="getChipOutline(job.category)">
-                                                <v-avatar>
-                                                    <v-icon>{{ getIcon(job.category)}}</v-icon>
-                                                </v-avatar>
-                                                <span class="category">{{job.category}}</span>
+                                            <v-list-tile-action>
+                                                <v-list-tile-action-text>{{ job.posted }}</v-list-tile-action-text>
+                                                <v-chip outline :color="getChipOutline(job.category)">
+                                                    <v-avatar>
+                                                        <v-icon>{{ getIcon(job.category)}}</v-icon>
+                                                    </v-avatar>
+                                                    <span class="category">{{job.category}}</span>
 
-                                            </v-chip>
-                                        </v-list-tile-action>
+                                                </v-chip>
+                                            </v-list-tile-action>
 
-                                    </v-list-tile>
-                                    <v-divider
-                                            v-if="index < jobs.length"
-                                            :key="index"
-                                    ></v-divider>
-                                </template>
+                                        </v-list-tile>
+                                        <v-divider
+                                                v-if="index < jobs.length"
+                                                :key="index"
+                                        ></v-divider>
+                                    </template>
+                                </div>
                             </div>
-                        </div>
-                    </v-list>
-                </v-card>
-            </v-flex>
-        </v-layout>
-    </div>
+                        </v-list>
+                    </v-card>
+                </v-flex>
+            </v-layout>
+        </div>
 
     </div>
 </template>
@@ -64,9 +64,8 @@
 <script>
     import filterbar from '../components/Filterbar.vue'
     import header from '../components/Header.vue'
+    import api from '../Api';
 
-
-    import axios from 'axios';
 
     export default {
         data() {
@@ -77,8 +76,6 @@
         components: {
             filterbar,
             "header-component": header,
-
-
         },
         methods: {
             getIcon: (category) => {
@@ -134,12 +131,13 @@
                 }
             }
         },
-        created() {
-            axios.get("/jobs")
+        mounted() {
+            api.getAllJobs()
                 .then(response => {
                     this.jobs = response.data;
                 })
-                .catch(error => console.log(error))
+                .catch(error => this.$log.debug(error))
+                .finally(() => this.loading = false)
         }
     }
 </script>
@@ -177,7 +175,6 @@
             max-width: 60%;
         }
     }
-
 
 
 </style>
