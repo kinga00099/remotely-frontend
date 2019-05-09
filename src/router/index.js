@@ -28,7 +28,7 @@ let router = new Router({
             path: '/job/:id',
             component: Job,
             meta: {
-                requiresAuth: true
+                requiresAuth: false
             }
         },
         {
