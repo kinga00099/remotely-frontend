@@ -1,5 +1,5 @@
 <template>
-    <v-container grid-list-xl>
+    <v-container grid-list-xl class="fade-in">
         <v-flex xs12 sm10 md8 lg6 offset-sm1 offset-md2 offset-lg3>
             <v-card class="elevation-5">
                 <v-layout align-center row fill-height>

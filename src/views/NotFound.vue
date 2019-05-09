@@ -1,5 +1,5 @@
 <template>
-    <v-container grid-list-xl>
+    <v-container grid-list-xl class="fade-in">
         <v-layout class="text-xs-center" row>
             <v-flex>
                 <h1>OOps. This page does not exist.</h1>

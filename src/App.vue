@@ -1,5 +1,5 @@
 <template>
-    <v-app>
+    <v-app class="fade-in">
         <navbar></navbar>
         <v-content>
             <v-container fluid>
@@ -51,5 +51,22 @@
     @import "assets/stylus/main.styl"
     .container.fluid {
         padding: 0;
+    }
+
+    .fade-in {
+        opacity: 1;
+        animation-name: fadeInOpacity;
+        animation-iteration-count: 1;
+        animation-timing-function: ease-in;
+        animation-duration: 0.5s;
+    }
+
+    @keyframes fadeInOpacity {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
     }
 </style>

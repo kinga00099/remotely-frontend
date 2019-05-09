@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="fade-in">
         <header-component></header-component>
         <div>
             <filterbar></filterbar>
