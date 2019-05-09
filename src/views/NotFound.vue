@@ -20,10 +20,7 @@
 
 <script>
     export default {
-        name: "NotFound",
-        mounted() {
-            this.redirect('/')
-        }
+        name: "NotFound"
     }
 </script>
 
