@@ -154,7 +154,7 @@
     </v-container>
 </template>
 <script>
-    import api from '../Api';
+    import axios from '../axios.js';
 
     export default {
         name: "Job",
@@ -166,12 +166,12 @@
         },
         mounted() {
             const id = this.$route.params.id;
-            api.getJobById(id)
+            axios.getJobById(id)
                 .then(response => {
                     this.job = response.data;
                     this.company = response.data.company;
                 })
-                .catch(error => console.log(error))
+                .catch(error => this.$log.debug(error))
                 .finally(() => this.loading = false)
         }
     }

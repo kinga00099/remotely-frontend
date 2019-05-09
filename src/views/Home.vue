@@ -64,7 +64,7 @@
 <script>
     import filterbar from '../components/Filterbar.vue'
     import header from '../components/Header.vue'
-    import api from '../Api';
+    import axios from '../axios.js';
 
 
     export default {
@@ -132,7 +132,7 @@
             }
         },
         mounted() {
-            api.getAllJobs()
+            axios.getAllJobs()
                 .then(response => {
                     this.jobs = response.data;
                 })

@@ -28,6 +28,10 @@ export default {
 
     getJobById(id){
         return this.execute('GET', 'job/'+id)
+    },
+
+    getFilters(){
+        return this.execute('GET', 'types')
     }
 
 }

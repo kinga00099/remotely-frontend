@@ -29,7 +29,7 @@
 </template>
 
 <script>
-    import axios from 'axios';
+    import axios from '../axios.js';
 
     export default {
         data() {
@@ -39,14 +39,14 @@
                 levels: [],
             }
         },
-        created() {
-            axios.get("/types")
+        mounted() {
+            axios.getFilters()
                 .then(response => {
                     this.types = response.data.types;
                     this.categories = response.data.categories;
                     this.levels = response.data.levels;
                 })
-                .catch(error => console.log(error))
+                .catch(error => this.$log.debug(error))
         }
     }
 </script>
