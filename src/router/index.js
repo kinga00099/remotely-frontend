@@ -39,7 +39,11 @@ let router = new Router({
             component: Auth.handleCallback(),
         },
     ],
-    mode: 'history'
+    mode: 'history',
+    scrollBehavior (to, from, savedPosition) {
+        return { x: 0, y: 0 }
+    }
+
 });
 
 router.beforeEach(Vue.prototype.$auth.authRedirectGuard());
