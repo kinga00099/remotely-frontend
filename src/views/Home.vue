@@ -9,7 +9,7 @@
                         <v-list three-line>
                             <div v-if="jobs && jobs.length">
                                 <div v-for="i in 5">
-                                    <template v-for="(job, index) in jobs">
+                                    <template v-for="(job, index) in filteredJobs">
                                         <v-list-tile
                                                 :key="job.jobTitle"
                                                 avatar
@@ -84,7 +84,8 @@
     export default {
         data() {
             return {
-                jobs: []
+                jobs: [],
+                filterText: ''
             }
         },
         components: {
@@ -92,7 +93,7 @@
             "header-component": header,
         },
         methods: {
-            getIcon: (category) => {
+            getIcon: category => {
                 switch (category) {
                     case "CUSTOMERSUPPORT":
                         return "contact_phone";
@@ -118,7 +119,7 @@
                         return "computer";
                 }
             },
-            getChipOutline: (category) => {
+            getChipOutline: category => {
                 switch (category) {
                     case "CUSTOMERSUPPORT":
                         return "pink";
@@ -143,6 +144,26 @@
                     case "PROGRAMMING":
                         return "blue";
                 }
+            },
+        },
+        computed: {
+            filteredJobs() {
+                return this.jobs.filter(job => {
+                    let searched = this.filterText.toLowerCase();
+                    let isIncludedInTitle = job.jobTitle.toLowerCase().includes(searched);
+                    let isIncludedInCompanyName = job.company.title.toLowerCase().includes(searched);
+                    let isIncludedInTags;
+                    for (let tag of job.tags) {
+                        if (tag.toLowerCase().includes(searched)) {
+                            isIncludedInTags = true;
+                            break
+                        } else {
+                            isIncludedInTags = false;
+                        }
+                    }
+
+                    return isIncludedInTitle || isIncludedInCompanyName || isIncludedInTags;
+                })
             }
         },
         mounted() {
@@ -151,7 +172,6 @@
                     this.jobs = response.data;
                 })
                 .catch(error => this.$log.debug(error))
-                .finally(() => this.loading = false)
         }
     }
 </script>
