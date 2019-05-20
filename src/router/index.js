@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '../views/Home.vue'
+import Home from '../views/Home'
 import Job from "../views/Job";
+import Login from "../views/Login";
 import NotFound from "../views/NotFound";
 
 import Auth from "@okta/okta-vue";
@@ -20,8 +21,11 @@ let router = new Router({
     routes: [
         {
             path: '/',
-            name: 'Home',
             component: Home
+        },
+        {
+            path: '/login',
+            component: Login
         },
         {
             path: '*',
@@ -31,7 +35,7 @@ let router = new Router({
             path: '/job/:id',
             component: Job,
             meta: {
-                requiresAuth: false
+                requiresAuth: true
             }
         },
         {
@@ -46,6 +50,14 @@ let router = new Router({
 
 });
 
-router.beforeEach(Vue.prototype.$auth.authRedirectGuard());
+const onAuthRequired = async (from, to, next) => {
+    if (from.matched.some(record => record.meta.requiresAuth) && !(await Vue.prototype.$auth.isAuthenticated())) {
+        next({ path: '/login' })
+    } else {
+        next()
+    }
+};
+
+router.beforeEach(onAuthRequired);
 
 export default router;
