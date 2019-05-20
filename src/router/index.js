@@ -6,14 +6,12 @@ import Login from "../views/Login";
 import NotFound from "../views/NotFound";
 
 import Auth from "@okta/okta-vue";
+import authConfig from '../auth/auth.config.js'
 
+const options = authConfig;
 
-Vue.use(Auth, {
-    issuer: 'https://dev-933332.okta.com/oauth2/default',
-    client_id: '0oakfuhbsRD5EH34N356',
-    redirect_uri: window.location.origin + '/implicit/callback',
-    scope: 'openid profile email'
-});
+Vue.use(Auth, authConfig
+);
 
 Vue.use(Router);
 
