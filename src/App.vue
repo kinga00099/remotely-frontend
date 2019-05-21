@@ -3,7 +3,7 @@
         <navbar></navbar>
         <v-content>
             <v-container fluid>
-                <router-view :activeUser="activeUser"></router-view>
+                <router-view></router-view>
             </v-container>
         </v-content>
         <footer-component></footer-component>
@@ -16,34 +16,22 @@
 
     export default {
         name: 'app',
-        data: () => {
-            return {
-                activeUser: null
-            }
-        },
         components: {
             navbar,
             "footer-component": footer,
         },
-        async created() {
-            await this.refreshActiveUser()
+        created() {
+            this.isAuthenticated();
         },
         watch: {
-            '$route': 'refreshActiveUser'
+            // Everytime the route changes, check for auth status
+            '$route': 'isAuthenticated'
         },
-
         methods: {
-            async refreshActiveUser() {
-                this.activeUser = await this.$auth.getUser();
-                this.$log.debug('activeUser', this.activeUser)
-            },
-
-            async handleLogout() {
-                await this.$auth.logout();
-                await this.refreshActiveUser();
-                this.$router.go('/')
+            isAuthenticated() {
+                this.$store.dispatch('checkIfAuthenticated', this.$auth)
             }
-        },
+        }
     }
 </script>
 
