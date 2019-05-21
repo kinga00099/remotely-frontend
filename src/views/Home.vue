@@ -85,7 +85,6 @@
         data() {
             return {
                 jobs: [],
-                filterText: ''
             }
         },
         components: {
@@ -149,7 +148,7 @@
         computed: {
             filteredJobs() {
                 return this.jobs.filter(job => {
-                    let searched = this.filterText.toLowerCase();
+                    let searched = this.$store.getters.getFilterText.toLowerCase();
                     let isIncludedInTitle = job.jobTitle.toLowerCase().includes(searched);
                     let isIncludedInCompanyName = job.company.title.toLowerCase().includes(searched);
                     let isIncludedInTags;
