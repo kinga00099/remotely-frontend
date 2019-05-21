@@ -6,7 +6,7 @@ import "normalize.css"
 import Vuetify from 'vuetify'
 import router from './router/index'
 import VueLogger from 'vuejs-logger';
-
+import store from './store/store'
 
 Vue.config.productionTip = false;
 
@@ -33,5 +33,6 @@ Vue.use(VueLogger, options);
 
 new Vue({
     router,
+    store,
     render: h => h(App),
 }).$mount('#app');
