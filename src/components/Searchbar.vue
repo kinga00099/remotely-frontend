@@ -1,6 +1,6 @@
 <template>
     <v-input>
-        <v-text-field class="search" v-model="search" label="Search" dark color="#fff" align-center :append-icon="icon">
+        <v-text-field class="search" v-model="filterText" label="Search" dark color="#fff" align-center :append-icon="icon">
         </v-text-field>
     </v-input>
 </template>
@@ -11,7 +11,12 @@
         data() {
             return {
                 icon: 'search',
-                search: ''
+                filterText: ''
+            }
+        },
+        watch: {
+            filterText(){
+                this.$store.dispatch('saveFilterText', this.filterText);
             }
         }
     }
