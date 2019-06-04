@@ -36,5 +36,9 @@ export default {
 
     getCompaniesByUser(email) {
         return this.execute('GET',  'company?email='+email)
+    },
+
+    deleteJobById(id) {
+        return this.execute('DELETE',  'job/'+id)
     }
 }
