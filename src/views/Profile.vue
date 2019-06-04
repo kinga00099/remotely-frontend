@@ -1,42 +1,108 @@
 <template>
-    <v-layout>
-        <v-flex xs12 sm6 offset-sm3>
-            <v-card>
-                <v-img
-                        src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
-                        aspect-ratio="2.75"
-                ></v-img>
+    <v-container grid-list-md>
+        <div v-for="i in 3">
+            <div v-for="company in companies">
+                <v-data-iterator
+                        :items="company.jobs"
+                        :rows-per-page-items="rowsPerPageItems"
+                        :pagination.sync="pagination"
+                        content-tag="v-layout"
+                        row
+                        wrap
+                >
+                    <template v-slot:header>
+                        <v-toolbar
+                                class="mb-2"
+                                color="cyan lighten-2"
+                                dark
+                                flat
+                        >
+                            <v-toolbar-title>{{company.title}}</v-toolbar-title>
+                        </v-toolbar>
+                    </template>
 
-                <v-card-title primary-title>
-                    <div>
-                        <h3 class="headline mb-0">Kangaroo Valley Safari</h3>
-                        <div> {{ card_text }}</div>
-                    </div>
-                </v-card-title>
-
-                <v-card-actions>
-                    <v-btn flat color="orange">Share</v-btn>
-                    <v-btn flat color="orange">Explore</v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-flex>
-    </v-layout>
+                    <template v-slot:item="props">
+                        <v-flex
+                                xs12
+                                sm6
+                                md4
+                                lg3
+                        >
+                            <v-card>
+                                <v-card-title><h3>{{ props.item.jobTitle }}</h3>
+                                    <v-spacer></v-spacer>
+                                    <v-btn flat icon color="info">
+                                        <v-icon>cancel</v-icon>
+                                    </v-btn>
+                                    <v-btn flat icon color="orange">
+                                        <v-icon>edit</v-icon>
+                                    </v-btn>
+                                    <v-btn flat icon color="red">
+                                        <v-icon>delete</v-icon>
+                                    </v-btn>
+                                </v-card-title>
+                                <v-divider></v-divider>
+                                <v-list dense>
+                                    <v-list-tile>
+                                        <v-list-tile-content>Category:</v-list-tile-content>
+                                        <v-list-tile-content>{{ props.item.category }}
+                                        </v-list-tile-content>
+                                    </v-list-tile>
+                                    <v-list-tile>
+                                        <v-list-tile-content>Type:</v-list-tile-content>
+                                        <v-list-tile-content>{{ props.item.type }}</v-list-tile-content>
+                                    </v-list-tile>
+                                    <v-list-tile>
+                                        <v-list-tile-content>Level:</v-list-tile-content>
+                                        <v-list-tile-content>{{ props.item.level }}</v-list-tile-content>
+                                    </v-list-tile>
+                                    <v-list-tile>
+                                        <v-list-tile-content>Posted:</v-list-tile-content>
+                                        <v-list-tile-content>{{ props.item.posted }}
+                                        </v-list-tile-content>
+                                    </v-list-tile>
+                                    <v-list-tile>
+                                        <v-list-tile-content>Viewed:</v-list-tile-content>
+                                        <v-list-tile-content>{{ props.item.viewCounter }}
+                                        </v-list-tile-content>
+                                    </v-list-tile>
+                                    <v-list-tile>
+                                        <v-list-tile-content>Status:</v-list-tile-content>
+                                        <v-list-tile-content v-if="props.item.open">Open
+                                        </v-list-tile-content>
+                                        <v-list-tile-content v-else>Closed
+                                        </v-list-tile-content>
+                                    </v-list-tile>
+                                </v-list>
+                            </v-card>
+                        </v-flex>
+                    </template>
+                </v-data-iterator>
+                <hr>
+            </div>
+        </div>
+    </v-container>
 </template>
-
 <script>
     import axios from '../axios.js';
 
     export default {
         data() {
             return {
-                jobs: []
+                companies: [],
+                jobs: [],
+                rowsPerPageItems: [4, 8, 12],
+                pagination: {
+                    rowsPerPage: 4
+                }
             }
         },
         async mounted() {
-            const email = await this.$auth.getUser().email;
+            //const email = await this.$auth.getUser().email;
+            const email = 'test2@test.com';
             axios.getCompaniesByUser(email)
                 .then(response => {
-                    this.jobs = response.data;
+                    this.companies = response.data;
                 })
                 .catch(error => this.$log.debug(error))
         }
@@ -45,5 +111,7 @@
 
 
 <style scoped>
-
+    .v-list__tile__content {
+        flex: 1;
+    }
 </style>
