@@ -3,11 +3,10 @@ import Router from 'vue-router'
 import Home from '../views/Home'
 import Job from "../views/Job";
 import NotFound from "../views/NotFound";
+import Profile from "../views/Profile";
 
 import Auth from "@okta/okta-vue";
 import authConfig from '../auth/auth.config.js'
-
-const options = authConfig;
 
 Vue.use(Auth, authConfig
 );
@@ -28,7 +27,14 @@ let router = new Router({
             path: '/job/:id',
             component: Job,
             meta: {
-                requiresAuth: true
+                requiresAuth: false
+            }
+        },
+        {
+            path: '/profile',
+            component: Profile,
+            meta: {
+                requiresAuth: false
             }
         },
         {
