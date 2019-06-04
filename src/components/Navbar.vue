@@ -32,7 +32,7 @@
             <v-spacer></v-spacer>
 
             <v-toolbar-items class="hidden-xs-only">
-                <v-btn flat :to="profile.link">
+                <v-btn flat v-if="isAuthenticated" :to="profile.link">
                     <v-icon left dark>{{ profile.icon }}</v-icon>
                     {{ profile.title }}
                 </v-btn>
