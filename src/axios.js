@@ -35,6 +35,6 @@ export default {
     },
 
     getCompaniesByUser(email) {
-        return this.execute('GET',  'company/'+email)
+        return this.execute('GET',  'company?email='+email)
     }
 }
