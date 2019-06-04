@@ -7,8 +7,6 @@ import Vuetify from 'vuetify'
 import router from './router/index'
 import VueLogger from 'vuejs-logger';
 import store from './store/store'
-import Notify from 'vue2-notify'
-
 
 Vue.config.productionTip = false;
 
@@ -20,7 +18,6 @@ Vue.use(Vuetify, {
     }
 });
 
-Vue.use(Notify, {position:'bottom-right'});
 
 const options = {
     isEnabled: true,
