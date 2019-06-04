@@ -1,6 +1,5 @@
 <template>
     <v-container grid-list-md>
-        <div v-for="i in 3">
             <div v-for="company in companies">
                 <v-data-iterator
                         :items="company.jobs"
@@ -80,7 +79,6 @@
                 </v-data-iterator>
                 <hr>
             </div>
-        </div>
     </v-container>
 </template>
 <script>
@@ -98,9 +96,10 @@
             }
         },
         async mounted() {
-            //const email = await this.$auth.getUser().email;
-            const email = 'test2@test.com';
-            axios.getCompaniesByUser(email)
+            const user = await this.$auth.getUser();
+            this.$log.debug(user.email);
+            //const email = 'test1@test.com';
+            axios.getCompaniesByUser(user.email)
                 .then(response => {
                     this.companies = response.data;
                 })
