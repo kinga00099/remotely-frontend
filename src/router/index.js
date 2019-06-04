@@ -34,7 +34,7 @@ let router = new Router({
             path: '/profile',
             component: Profile,
             meta: {
-                requiresAuth: false
+                requiresAuth: true
             }
         },
         {
