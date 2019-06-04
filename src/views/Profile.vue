@@ -1,84 +1,91 @@
 <template>
     <v-container grid-list-md>
-            <div v-for="company in companies">
-                <v-data-iterator
-                        :items="company.jobs"
-                        :rows-per-page-items="rowsPerPageItems"
-                        :pagination.sync="pagination"
-                        content-tag="v-layout"
-                        row
-                        wrap
-                >
-                    <template v-slot:header>
-                        <v-toolbar
-                                class="mb-2"
-                                color="cyan lighten-2"
-                                dark
-                                flat
-                        >
-                            <v-toolbar-title>{{company.title}}</v-toolbar-title>
-                        </v-toolbar>
-                    </template>
+        <div v-for="(company,index) in companies">
+            <v-data-iterator
+                    :items="company.jobs"
+                    :rows-per-page-items="rowsPerPageItems"
+                    :pagination.sync="pagination"
+                    content-tag="v-layout"
+                    row
+                    wrap
+            >
+                <template v-slot:header>
+                    <v-toolbar
+                            class="mb-2"
+                            color="cyan lighten-2"
+                            dark
+                            flat
+                    >
+                        <v-toolbar-title>{{company.title}}
+                            <v-btn flat icon color="orange">
+                                <v-icon>edit</v-icon>
+                            </v-btn>
+                            <v-btn flat icon color="red">
+                                <v-icon>delete</v-icon>
+                            </v-btn>
+                        </v-toolbar-title>
+                    </v-toolbar>
+                </template>
 
-                    <template v-slot:item="props">
-                        <v-flex
-                                xs12
-                                sm6
-                                md4
-                                lg3
-                        >
-                            <v-card>
-                                <v-card-title><h3>{{ props.item.jobTitle }}</h3>
-                                    <v-spacer></v-spacer>
-                                    <v-btn flat icon color="info">
-                                        <v-icon>cancel</v-icon>
-                                    </v-btn>
-                                    <v-btn flat icon color="orange">
-                                        <v-icon>edit</v-icon>
-                                    </v-btn>
-                                    <v-btn flat icon color="red">
-                                        <v-icon>delete</v-icon>
-                                    </v-btn>
-                                </v-card-title>
-                                <v-divider></v-divider>
-                                <v-list dense>
-                                    <v-list-tile>
-                                        <v-list-tile-content>Category:</v-list-tile-content>
-                                        <v-list-tile-content>{{ props.item.category }}
-                                        </v-list-tile-content>
-                                    </v-list-tile>
-                                    <v-list-tile>
-                                        <v-list-tile-content>Type:</v-list-tile-content>
-                                        <v-list-tile-content>{{ props.item.type }}</v-list-tile-content>
-                                    </v-list-tile>
-                                    <v-list-tile>
-                                        <v-list-tile-content>Level:</v-list-tile-content>
-                                        <v-list-tile-content>{{ props.item.level }}</v-list-tile-content>
-                                    </v-list-tile>
-                                    <v-list-tile>
-                                        <v-list-tile-content>Posted:</v-list-tile-content>
-                                        <v-list-tile-content>{{ props.item.posted }}
-                                        </v-list-tile-content>
-                                    </v-list-tile>
-                                    <v-list-tile>
-                                        <v-list-tile-content>Viewed:</v-list-tile-content>
-                                        <v-list-tile-content>{{ props.item.viewCounter }}
-                                        </v-list-tile-content>
-                                    </v-list-tile>
-                                    <v-list-tile>
-                                        <v-list-tile-content>Status:</v-list-tile-content>
-                                        <v-list-tile-content v-if="props.item.open">Open
-                                        </v-list-tile-content>
-                                        <v-list-tile-content v-else>Closed
-                                        </v-list-tile-content>
-                                    </v-list-tile>
-                                </v-list>
-                            </v-card>
-                        </v-flex>
-                    </template>
-                </v-data-iterator>
-                <hr>
-            </div>
+                <template v-slot:item="props">
+                    <v-flex
+                            xs12
+                            sm6
+                            md4
+                            lg3
+                    >
+                        <v-card>
+                            <v-card-title><h3>{{ props.item.jobTitle }}</h3>
+                                <v-spacer></v-spacer>
+                                <v-btn flat icon color="info">
+                                    <v-icon>cancel</v-icon>
+                                </v-btn>
+                                <v-btn flat icon color="orange">
+                                    <v-icon>edit</v-icon>
+                                </v-btn>
+                                <v-btn flat icon color="red" v-on:click="deleteJob(props.item.id)">
+                                    <v-icon>delete</v-icon>
+                                </v-btn>
+                            </v-card-title>
+                            <v-divider></v-divider>
+                            <v-list dense>
+                                <v-list-tile>
+                                    <v-list-tile-content>Category:</v-list-tile-content>
+                                    <v-list-tile-content>{{ props.item.category }}
+                                    </v-list-tile-content>
+                                </v-list-tile>
+                                <v-list-tile>
+                                    <v-list-tile-content>Type:</v-list-tile-content>
+                                    <v-list-tile-content>{{ props.item.type }}</v-list-tile-content>
+                                </v-list-tile>
+                                <v-list-tile>
+                                    <v-list-tile-content>Level:</v-list-tile-content>
+                                    <v-list-tile-content>{{ props.item.level }}</v-list-tile-content>
+                                </v-list-tile>
+                                <v-list-tile>
+                                    <v-list-tile-content>Posted:</v-list-tile-content>
+                                    <v-list-tile-content>{{ props.item.posted }}
+                                    </v-list-tile-content>
+                                </v-list-tile>
+                                <v-list-tile>
+                                    <v-list-tile-content>Viewed:</v-list-tile-content>
+                                    <v-list-tile-content>{{ props.item.viewCounter }}
+                                    </v-list-tile-content>
+                                </v-list-tile>
+                                <v-list-tile>
+                                    <v-list-tile-content>Status:</v-list-tile-content>
+                                    <v-list-tile-content v-if="props.item.open">Open
+                                    </v-list-tile-content>
+                                    <v-list-tile-content v-else>Closed
+                                    </v-list-tile-content>
+                                </v-list-tile>
+                            </v-list>
+                        </v-card>
+                    </v-flex>
+                </template>
+            </v-data-iterator>
+            <hr>
+        </div>
     </v-container>
 </template>
 <script>
@@ -95,15 +102,34 @@
                 }
             }
         },
-        async mounted() {
-            const user = await this.$auth.getUser();
-            this.$log.debug(user.email);
-            //const email = 'test1@test.com';
-            axios.getCompaniesByUser(user.email)
-                .then(response => {
-                    this.companies = response.data;
-                })
-                .catch(error => this.$log.debug(error))
+
+        methods: {
+            deleteJob(id) {
+                axios.deleteJobById(id)
+                    .then(response => {
+                        if (response.status === 200){
+
+                        }
+                        this.$log.info(response)
+                    })
+                    .catch(error => this.$log.debug(error));
+                this.fetchList();
+            },
+
+            async fetchList() {
+                const user = await this.$auth.getUser();
+                this.$log.debug(user.email);
+                //const email = 'test1@test.com';
+                axios.getCompaniesByUser(user.email)
+                    .then(response => {
+                        this.companies = response.data;
+                    })
+                    .catch(error => this.$log.debug(error))
+            }
+        },
+
+        mounted() {
+            this.fetchList();
         }
     }
 </script>
