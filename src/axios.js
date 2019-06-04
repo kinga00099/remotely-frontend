@@ -32,6 +32,9 @@ export default {
 
     getFilters(){
         return this.execute('GET', 'types')
-    }
+    },
 
+    getCompaniesByUser(email) {
+        return this.execute('GET',  'company/'+email)
+    }
 }
