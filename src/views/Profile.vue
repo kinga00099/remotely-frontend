@@ -86,6 +86,26 @@
             </v-data-iterator>
             <hr>
         </div>
+        <v-snackbar
+                v-model="snackbar"
+                :bottom="y === 'bottom'"
+                :left="x === 'left'"
+                :multi-line="mode === 'multi-line'"
+                :right="x === 'right'"
+                :timeout="timeout"
+                :color="color"
+                :top="y === 'top'"
+                :vertical="mode === 'vertical'"
+        >
+            {{ text }}
+            <v-btn
+                    color="black"
+                    flat
+                    @click="snackbar = false"
+            >
+                Close
+            </v-btn>
+        </v-snackbar>
     </v-container>
 </template>
 <script>
@@ -99,7 +119,14 @@
                 rowsPerPageItems: [4, 8, 12],
                 pagination: {
                     rowsPerPage: 4
-                }
+                },
+                snackbar: false,
+                y: 'top',
+                x: null,
+                mode: '',
+                timeout: 1500,
+                text: '',
+                color: ''
             }
         },
 
@@ -107,12 +134,21 @@
             deleteJob(id) {
                 axios.deleteJobById(id)
                     .then(response => {
-                        if (response.status === 200){
-
+                        if (response.status === 200) {
+                            this.color = 'success';
+                            this.text = 'Successfully deleted';
+                        } else {
+                            this.color = 'warning';
+                            this.text = 'Something went wrong. Refresh the page, then try again.';
                         }
-                        this.$log.info(response)
                     })
-                    .catch(error => this.$log.debug(error));
+                    .catch(() => {
+                            this.color = 'error';
+                            this.text = 'An error occured. Try again.';
+                        }
+                    )
+                    .finally(() => this.snackbar = true
+                    );
                 this.fetchList();
             },
 
