@@ -10,7 +10,7 @@ export default new Vuex.Store({
     },
     mutations: {
         setAuth(state, authenticated) {
-            state.authenticated = authenticated.authenticated;
+            state.authenticated = authenticated;
         },
         clearAuthData(state) {
             state.authenticated = null
@@ -22,7 +22,7 @@ export default new Vuex.Store({
     actions: {
         async checkIfAuthenticated({commit}, auth) {
             const authenticated = await auth.isAuthenticated();
-            commit('setAuth', {authenticated});
+            commit('setAuth', authenticated);
         },
         saveFilterText({commit}, text){
             commit('setFilterText', text)
