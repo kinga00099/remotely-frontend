@@ -8,7 +8,6 @@
                     <v-card>
                         <v-list three-line>
                             <div v-if="jobs && jobs.length">
-                                <div v-for="i in 5">
                                     <template v-for="(job, index) in filteredJobs">
                                         <v-list-tile
                                                 :key="job.jobTitle"
@@ -63,7 +62,6 @@
                                                 :key="index">
                                         </v-divider>
                                     </template>
-                                </div>
                             </div>
                         </v-list>
                     </v-card>
