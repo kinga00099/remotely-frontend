@@ -20,7 +20,7 @@
                             <v-btn flat icon color="orange">
                                 <v-icon>edit</v-icon>
                             </v-btn>
-                            <v-btn flat icon color="red" v-on:click="deleteCompany(company.id)">
+                            <v-btn flat icon color="red" @click="deleteCompany(company.id)">
                                 <v-icon>delete</v-icon>
                             </v-btn>
                         </v-toolbar-title>
@@ -33,19 +33,13 @@
                             sm6
                             md4
                             lg3
+                            nowrap
                     >
                         <v-card>
                             <v-card-title><h3>{{ props.item.jobTitle }}</h3>
                                 <v-spacer></v-spacer>
-                                <v-btn flat icon color="info">
-                                    <v-icon>cancel</v-icon>
-                                </v-btn>
-                                <v-btn flat icon color="orange">
-                                    <v-icon>edit</v-icon>
-                                </v-btn>
-                                <v-btn flat icon color="red" v-on:click="deleteJob(props.item.id)">
-                                    <v-icon>delete</v-icon>
-                                </v-btn>
+                                <span v-if="props.item.open">Open</span>
+                                <span v-else>Closed</span>
                             </v-card-title>
                             <v-divider></v-divider>
                             <v-list dense>
@@ -72,11 +66,23 @@
                                     <v-list-tile-content>{{ props.item.viewCounter }}
                                     </v-list-tile-content>
                                 </v-list-tile>
+                                <v-divider></v-divider>
+
                                 <v-list-tile>
-                                    <v-list-tile-content>Status:</v-list-tile-content>
-                                    <v-list-tile-content v-if="props.item.open">Open
+                                    <v-list-tile-content class="aligned__buttons">
+                                        <v-btn flat icon color="info" @click="toggleJobStatus(props.item.id)">
+                                            <v-icon>cancel</v-icon>
+                                        </v-btn>
                                     </v-list-tile-content>
-                                    <v-list-tile-content v-else>Closed
+                                    <v-list-tile-content class="aligned__buttons">
+                                        <v-btn flat icon color="orange">
+                                            <v-icon>edit</v-icon>
+                                        </v-btn>
+                                    </v-list-tile-content>
+                                    <v-list-tile-content class="aligned__buttons">
+                                        <v-btn flat icon color="red" @click="deleteJob(props.item.id)">
+                                            <v-icon>delete</v-icon>
+                                        </v-btn>
                                     </v-list-tile-content>
                                 </v-list-tile>
                             </v-list>
@@ -132,35 +138,25 @@
 
         methods: {
             deleteJob(id) {
-                axios.deleteJobById(id)
-                    .then(response => {
-                        if (response.status === 200) {
-                            this.expectedStatusCode();
-                        } else {
-                            this.wrongStatusCode();
-                        }
-                    })
-                    .catch(() => {
-                            this.errorOccurred();
-                        }
-                    )
-                    .finally(() => this.snackbar = true
-                    );
-                this.fetchList();
+                this.execute(axios.deleteJobById(id))
             },
             deleteCompany(id) {
-                axios.deleteCompanyById(id)
-                    .then(response => {
-                        if (response.status === 200) {
-                            this.expectedStatusCode();
-                        } else {
-                            this.wrongStatusCode();
-                        }
-                    })
+                this.execute(axios.deleteCompanyById(id))
+            },
+            toggleJobStatus(id) {
+                this.execute(axios.toggleJobStatus(id));
+            },
+            execute(func) {
+                func.then(response => {
+                    if (response.status === 200) {
+                        this.expectedStatusCode();
+                    } else {
+                        this.wrongStatusCode();
+                    }
+                })
                     .catch(() => {
-                            this.errorOccurred();
-                        }
-                    )
+                        this.errorOccurred();
+                    })
                     .finally(() => this.snackbar = true
                     );
                 this.fetchList();
@@ -177,7 +173,6 @@
                 this.color = 'error';
                 this.text = 'An error occurred. Try again!';
             },
-
             async fetchList() {
                 const user = await this.$auth.getUser();
                 //const email = 'test1@test.com';
@@ -188,7 +183,6 @@
                     .catch(error => this.$log.debug(error))
             }
         },
-
         mounted() {
             this.fetchList();
         }
@@ -200,4 +194,15 @@
     .v-list__tile__content {
         flex: 1;
     }
+
+    @media only screen and (min-width: 1264px) {
+        .container {
+            max-width: 80%;
+        }
+    }
+
+    .aligned__buttons {
+        align-items: center;
+    }
+
 </style>
