@@ -1,6 +1,6 @@
 <template>
     <v-container grid-list-md>
-        <div v-for="(company,index) in companies">
+        <div v-for="company in companies" :key="company.id">
             <v-data-iterator
                     :items="company.jobs"
                     :rows-per-page-items="rowsPerPageItems"
@@ -20,7 +20,7 @@
                             <v-btn flat icon color="orange">
                                 <v-icon>edit</v-icon>
                             </v-btn>
-                            <v-btn flat icon color="red">
+                            <v-btn flat icon color="red" v-on:click="deleteCompany(company.id)">
                                 <v-icon>delete</v-icon>
                             </v-btn>
                         </v-toolbar-title>
@@ -135,26 +135,51 @@
                 axios.deleteJobById(id)
                     .then(response => {
                         if (response.status === 200) {
-                            this.color = 'success';
-                            this.text = 'Successfully deleted';
+                            this.expectedStatusCode();
                         } else {
-                            this.color = 'warning';
-                            this.text = 'Something went wrong. Refresh the page, then try again.';
+                            this.wrongStatusCode();
                         }
                     })
                     .catch(() => {
-                            this.color = 'error';
-                            this.text = 'An error occured. Try again.';
+                            this.errorOccurred();
                         }
                     )
                     .finally(() => this.snackbar = true
                     );
                 this.fetchList();
             },
+            deleteCompany(id) {
+                axios.deleteCompanyById(id)
+                    .then(response => {
+                        if (response.status === 200) {
+                            this.expectedStatusCode();
+                        } else {
+                            this.wrongStatusCode();
+                        }
+                    })
+                    .catch(() => {
+                            this.errorOccurred();
+                        }
+                    )
+                    .finally(() => this.snackbar = true
+                    );
+                this.fetchList();
+            },
+            expectedStatusCode() {
+                this.color = 'success';
+                this.text = 'Operation successful';
+            },
+            wrongStatusCode() {
+                this.color = 'warning';
+                this.text = 'Something went wrong. Refresh the page, then try again.';
+            },
+            errorOccurred() {
+                this.color = 'error';
+                this.text = 'An error occurred. Try again!';
+            },
 
             async fetchList() {
                 const user = await this.$auth.getUser();
-                this.$log.debug(user.email);
                 //const email = 'test1@test.com';
                 axios.getCompaniesByUser(user.email)
                     .then(response => {
