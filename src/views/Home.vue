@@ -191,6 +191,10 @@
         margin-right: 1rem;
     }
 
+    .v-chip.v-chip.v-chip--outline .v-avatar{
+        margin-left: -8px;
+    }
+
     @media only screen and (min-width: 600px) {
         .jobs {
             max-width: 100%;
