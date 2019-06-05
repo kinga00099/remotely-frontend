@@ -20,7 +20,7 @@
                             <v-btn flat icon color="orange">
                                 <v-icon>edit</v-icon>
                             </v-btn>
-                            <v-btn flat icon color="red" @click="deleteCompany(company.id)">
+                            <v-btn flat icon color="red" @click="openDialogForCompany(company.id)">
                                 <v-icon>delete</v-icon>
                             </v-btn>
                         </v-toolbar-title>
@@ -80,7 +80,7 @@
                                         </v-btn>
                                     </v-list-tile-content>
                                     <v-list-tile-content class="aligned__buttons">
-                                        <v-btn flat icon color="red" @click="deleteJob(props.item.id)">
+                                        <v-btn flat icon color="red" @click.stop="openDialogForJob(props.item.id)">
                                             <v-icon>delete</v-icon>
                                         </v-btn>
                                     </v-list-tile-content>
@@ -89,6 +89,7 @@
                         </v-card>
                     </v-flex>
                 </template>
+
             </v-data-iterator>
             <hr>
         </div>
@@ -112,6 +113,36 @@
                 Close
             </v-btn>
         </v-snackbar>
+        <v-dialog
+                v-model="dialog"
+                max-width="290"
+                persistent
+        >
+            <v-card>
+                <v-card-title class="headline">Are you sure?</v-card-title>
+                <v-card-text>
+                    It will be deleted permanently.
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                            color="red darken-1"
+                            flat="flat"
+                            @click="closeDialog"
+                    >
+                        No
+                    </v-btn>
+                    <v-btn
+                            color="green darken-1"
+                            flat="flat"
+                            @click="deleteEntry"
+                    >
+                        Yes
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+
     </v-container>
 </template>
 <script>
@@ -126,17 +157,31 @@
                 pagination: {
                     rowsPerPage: 4
                 },
+
                 snackbar: false,
                 y: 'top',
                 x: null,
                 mode: '',
-                timeout: 1500,
+                timeout: 2000,
                 text: '',
-                color: ''
+                color: '',
+
+                dialog: false,
+                jobId: null,
+                companyId: null
             }
         },
 
         methods: {
+            async fetchList() {
+                const user = await this.$auth.getUser();
+                //const email = 'test1@test.com';
+                axios.getCompaniesByUser(user.email)
+                    .then(response => {
+                        this.companies = response.data;
+                    })
+                    .catch(error => this.$log.debug(error))
+            },
             deleteJob(id) {
                 this.execute(axios.deleteJobById(id))
             },
@@ -173,14 +218,26 @@
                 this.color = 'error';
                 this.text = 'An error occurred. Try again!';
             },
-            async fetchList() {
-                const user = await this.$auth.getUser();
-                //const email = 'test1@test.com';
-                axios.getCompaniesByUser(user.email)
-                    .then(response => {
-                        this.companies = response.data;
-                    })
-                    .catch(error => this.$log.debug(error))
+            openDialogForJob(id) {
+                this.dialog = true;
+                this.jobId = id;
+            },
+            openDialogForCompany(id) {
+                this.dialog = true;
+                this.companyId = id;
+            },
+            closeDialog() {
+                this.dialog = false;
+                this.jobId = null;
+                this.companyId = null;
+            },
+            deleteEntry() {
+                if (this.jobId) {
+                    this.deleteJob(this.jobId)
+                } else if (this.companyId) {
+                    this.deleteCompany(this.companyId)
+                }
+                this.closeDialog()
             }
         },
         mounted() {
