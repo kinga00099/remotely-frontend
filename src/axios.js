@@ -40,5 +40,11 @@ export default {
 
     deleteJobById(id) {
         return this.execute('DELETE',  'job/'+id)
-    }
+    },
+
+    deleteCompanyById(id) {
+        return this.execute('DELETE',  'company/'+id)
+    },
+
+
 }
