@@ -46,5 +46,10 @@ export default {
         return this.execute('DELETE',  'company/'+id)
     },
 
+    toggleJobStatus(id){
+        return this.execute('POST',  'job/'+id)
+    }
+
+
 
 }
