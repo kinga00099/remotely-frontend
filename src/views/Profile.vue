@@ -146,7 +146,7 @@
     </v-container>
 </template>
 <script>
-    import axios from '../axios.js';
+    import axios from '../services/axios.js';
 
     export default {
         data() {

@@ -76,7 +76,7 @@
 <script>
     import filterbar from '../components/Filterbar.vue'
     import header from '../components/Header.vue'
-    import axios from '../axios.js';
+    import axios from '../services/axios.js';
 
 
     export default {
